@@ -49,7 +49,10 @@ cd <repository-name>
 2. Create a virtual environment:
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# On Linux/Mac:
+source .venv/bin/activate
+# On Windows:
+.venv\Scripts\activate
 ```
 
 3. Install dependencies:
@@ -68,6 +71,18 @@ python main.py
 ```
 
 The application will be accessible at `http://localhost:5000`
+
+## ⚠️ Platform Specific Notes
+
+### Windows Users:
+- Make sure you have Python 3.7+ installed
+- Use PowerShell or Command Prompt for the installation steps
+- Virtual environment activation command: `.venv\Scripts\activate`
+- If you encounter issues with `openfoodfacts` package on Windows, you might need to install Microsoft C++ Build Tools
+
+### Linux/Mac Users:
+- Use the standard installation commands as listed above
+- Virtual environment activation command: `source .venv/bin/activate`
 
 ## 🏗️ Project Structure
 

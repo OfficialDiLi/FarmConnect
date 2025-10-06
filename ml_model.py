@@ -4,11 +4,13 @@ from sklearn.neighbors import NearestNeighbors
 import pickle
 import numpy as np
 
+import os
+
 # --- 1. Load Data ---
 try:
     # We focus on interactions to build the recommendation engine
-    interactions_df = pd.read_csv('datasets/interactions.csv')
-    products_df = pd.read_csv('datasets/products.csv')
+    interactions_df = pd.read_csv(os.path.join('datasets', 'interactions.csv'))
+    products_df = pd.read_csv(os.path.join('datasets', 'products.csv'))
     print("Data loaded successfully.")
 except FileNotFoundError:
     print("Error: Could not find datasets/interactions.csv or datasets/products.csv.")
@@ -77,7 +79,7 @@ model_assets = {
     'user_item_matrix': user_item_sparse_matrix, # Keep the matrix for finding user history
 }
 
-with open('model.pkl', 'wb') as file:
+with open(os.path.join(os.path.dirname(__file__), 'model.pkl'), 'wb') as file:
     pickle.dump(model_assets, file)
 
 print("\n--- ML Model Training Success ---")

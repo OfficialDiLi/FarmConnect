@@ -3,6 +3,7 @@ import numpy as np
 from faker import Faker
 import random
 from datetime import datetime, timedelta
+import os
 
 # Initialize Faker for generating fake data
 fake = Faker('en_NG') # Use Nigerian locale for more relevant names and locations
@@ -22,7 +23,7 @@ users_data = {
     'password': ['password123' for _ in range(NUM_ROWS)]
 }
 users_df = pd.DataFrame(users_data)
-users_df.to_csv('users.csv', index=False)
+users_df.to_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'datasets', 'users.csv'), index=False)
 print("Generated users.csv with 400 rows.")
 
 
@@ -39,7 +40,7 @@ products_data = {
     'quality': [random.choice(['A', 'B', 'C']) for _ in range(NUM_ROWS)]
 }
 products_df = pd.DataFrame(products_data)
-products_df.to_csv('products.csv', index=False)
+products_df.to_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'datasets', 'products.csv'), index=False)
 print("Generated products.csv with 400 rows.")
 
 
@@ -54,7 +55,7 @@ interactions_data = {
     'timestamp': [fake.date_time_between(start_date='-30d', end_date='now') for _ in range(NUM_ROWS)]
 }
 interactions_df = pd.DataFrame(interactions_data)
-interactions_df.to_csv('interactions.csv', index=False)
+interactions_df.to_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'datasets', 'interactions.csv'), index=False)
 print("Generated interactions.csv with 400 rows.")
 
 
@@ -87,5 +88,5 @@ for i in range(1, NUM_ROWS + 1):
     })
 
 transactions_df = pd.DataFrame(transactions_data)
-transactions_df.to_csv('transactions.csv', index=False)
+transactions_df.to_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'datasets', 'transactions.csv'), index=False)
 print("Generated transactions.csv with 400 rows.")

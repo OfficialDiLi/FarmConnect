@@ -13,7 +13,7 @@ import openfoodfacts
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-change-in-production'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///farm_marketplace.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'farm_marketplace.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize extensions
@@ -25,7 +25,8 @@ login_manager.login_view = 'login'
 # Load recommendation model
 def load_recommendation_model():
     try:
-        with open('model.pkl', 'rb') as file:
+        model_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'model.pkl')
+        with open(model_path, 'rb') as file:
             model_data = pickle.load(file)
         return model_data
     except FileNotFoundError:
