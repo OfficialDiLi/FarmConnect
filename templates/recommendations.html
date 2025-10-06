@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Recommended Products For You</h2>
+
+{% if recommendations %}
+    <div class="row">
+        {% for product in recommendations %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="https://via.placeholder.com/300x200/4CAF50/white?text={{ product.name|upper }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">
+                        Price: ₦{{ "%.2f"|format(product.price) }} per kg<br>
+                        Quantity: {{ product.quantity }} kg<br>
+                        Quality: {{ product.quality }}
+                    </p>
+                    <a href="{{ url_for('products') }}" class="btn btn-success">View Product</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No recommendations available yet. Browse our products to get started!</p>
+    <a href="{{ url_for('products') }}" class="btn btn-primary">Browse Products</a>
+{% endif %}
+{% endblock %}

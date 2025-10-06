@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Products</h2>
+
+<!-- Search and Filter Section -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" action="{{ url_for('products') }}">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-4">
+                    <label for="search" class="form-label">Search</label>
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Search by crop type..." value="{{ search_query or '' }}">
+                </div>
+                <div class="col-md-2">
+                    <label for="crop_type" class="form-label">Crop Type</label>
+                    <select class="form-control" id="crop_type" name="crop_type">
+                        <option value="">All Types</option>
+                        {% for type in crop_types %}
+                            <option value="{{ type }}" {% if crop_type_selected == type %}selected{% endif %}>{{ type|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="min_price" class="form-label">Min Price</label>
+                    <input type="number" step="0.01" class="form-control" id="min_price" name="min_price" placeholder="Min" value="{{ min_price or '' }}">
+                </div>
+                <div class="col-md-2">
+                    <label for="max_price" class="form-label">Max Price</label>
+                    <input type="number" step="0.01" class="form-control" id="max_price" name="max_price" placeholder="Max" value="{{ max_price or '' }}">
+                </div>
+                <div class="col-md-2">
+                    <label for="quality" class="form-label">Quality</label>
+                    <select class="form-control" id="quality" name="quality">
+                        <option value="">All Grades</option>
+                        <option value="A" {% if quality_selected == 'A' %}selected{% endif %}>Grade A</option>
+                        <option value="B" {% if quality_selected == 'B' %}selected{% endif %}>Grade B</option>
+                        <option value="C" {% if quality_selected == 'C' %}selected{% endif %}>Grade C</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success">Search</button>
+                    <a href="{{ url_for('products') }}" class="btn btn-secondary">Clear Filters</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Results Count -->
+<div class="row mb-3">
+    <div class="col-12">
+        <p>{{ products|length }} product(s) found</p>
+    </div>
+</div>
+
+<!-- Products Grid -->
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="https://via.placeholder.com/300x200/4CAF50/white?text={{ product.crop_type|upper }}" class="card-img-top" alt="{{ product.crop_type }}">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ product.crop_type }}</h5>
+                <p class="card-text">
+                    Quantity: {{ product.quantity_kg }} kg<br>
+                    Price: ₦{{ "%.2f"|format(product.price_per_kg) }} per kg<br>
+                    Quality: {{ product.quality }}<br>
+                    Harvest Date: {{ product.harvest_date.strftime('%Y-%m-%d') }}
+                </p>
+                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-success mt-auto">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <p class="text-center">No products found matching your criteria.</p>
+    {% endfor %}
+</div>
+{% endblock %}

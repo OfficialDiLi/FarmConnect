@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <img src="https://via.placeholder.com/500x400/4CAF50/white?text={{ product.crop_type|upper }}" class="img-fluid rounded" alt="{{ product.crop_type }}">
+    </div>
+    <div class="col-md-6">
+        <h1>{{ product.crop_type }}</h1>
+        <p class="lead">{{ product.description }}</p>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Product Details</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Farmer:</strong> {{ product.farmer_user.name }}</li>
+                    <li class="list-group-item"><strong>Quantity Available:</strong> {{ product.quantity_kg }} kg</li>
+                    <li class="list-group-item"><strong>Price:</strong> ₦{{ "%.2f"|format(product.price_per_kg) }} per kg</li>
+                    <li class="list-group-item"><strong>Total Value:</strong> ₦{{ "%.2f"|format(product.price_per_kg * product.quantity_kg) }}</li>
+                    <li class="list-group-item"><strong>Quality:</strong> {{ product.quality }}</li>
+                    <li class="list-group-item"><strong>Harvest Date:</strong> {{ product.harvest_date.strftime('%Y-%m-%d') }}</li>
+                    <li class="list-group-item"><strong>Location:</strong> {{ product.farmer_user.location }}</li>
+                </ul>
+                
+                {% if current_user.is_authenticated and current_user.role == 'buyer' %}
+                    <button class="btn btn-success w-100 mt-3" data-bs-toggle="modal" data-bs-target="#buyModal">Buy Now</button>
+                {% elif current_user.is_authenticated and current_user.role == 'farmer' %}
+                    <p class="text-muted mt-3">This is your product listing.</p>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-success w-100 mt-3">Login to Buy</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Buy Modal -->
+<div class="modal fade" id="buyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Purchase {{ product.crop_type }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="buyForm">
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity (kg)</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="{{ product.quantity_kg }}" value="1">
+                        <div class="form-text">Available: {{ product.quantity_kg }} kg</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Total Cost</label>
+                        <div class="form-control bg-light" id="totalCost">₦{{ product.price_per_kg }}</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" onclick="purchase()">Confirm Purchase</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('quantity').addEventListener('input', function() {
+        const quantity = this.value;
+        const pricePerKg = {{ product.price_per_kg }};
+        const total = quantity * pricePerKg;
+        document.getElementById('totalCost').textContent = '₦' + total.toFixed(2);
+    });
+    
+    function purchase() {
+        // This is a simplified version - in a real app you would process the purchase
+        alert('Purchase would be processed in a real application. This is just a demo.');
+        // Close modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('buyModal'));
+        modal.hide();
+    }
+</script>
+{% endblock %}

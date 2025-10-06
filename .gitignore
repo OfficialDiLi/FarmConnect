@@ -1,0 +1,90 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/modules/
+.pytest_cache/
+.hypothesis/
+
+# Virtual Environment
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files that might be generated
+*.csv
+*.json
+*.db
+
+# SQLite database
+*.db
+farm_marketplace.db
+
+# Saved models
+*.pkl
+model.pkl
+
+# Environment variables
+.env
+
+# Logs
+*.log
+logs/
+logs/*
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Documentation
+docs/_build/
+
+# IPython
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# End

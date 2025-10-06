@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Farmer Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>Your Products</h3>
+        {% if products %}
+            <div class="row">
+                {% for product in products %}
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.crop_type }}</h5>
+                            <p class="card-text">
+                                Quantity: {{ product.quantity_kg }} kg<br>
+                                Price: ₦{{ "%.2f"|format(product.price_per_kg) }} per kg<br>
+                                Quality: {{ product.quality }}<br>
+                                Harvest Date: {{ product.harvest_date.strftime('%Y-%m-%d') }}
+                            </p>
+                            <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-primary">View Details</a>
+                            <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn btn-warning">Edit</a>
+                            <form method="POST" action="{{ url_for('delete_product', product_id=product.id) }}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>You haven't listed any products yet. <a href="{{ url_for('sell') }}">List your first product</a></p>
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Welcome, {{ current_user.name }}!</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Email:</strong> {{ current_user.email }}</p>
+                <p><strong>Location:</strong> {{ current_user.location }}</p>
+                <p><strong>Role:</strong> {{ current_user.role|title }}</p>
+                <a href="{{ url_for('sell') }}" class="btn btn-success">Add New Product</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
