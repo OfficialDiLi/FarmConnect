@@ -44,7 +44,6 @@ openfoodfacts==3.1.0
 packaging==25.0
 pandas==2.3.2
 pillow==11.3.0
-pip==25.2
 plotly==6.3.0
 protobuf==6.32.1
 pydantic==2.11.10
