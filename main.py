@@ -12,7 +12,7 @@ from sklearn.neighbors import NearestNeighbors
 import openfoodfacts
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key-change-in-production'
+app.config['SECRET_KEY'] = 'put-your-secret-key-change-in-production'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'farm_marketplace.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

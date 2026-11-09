@@ -84,4 +84,4 @@ with open(os.path.join(os.path.dirname(__file__), 'model.pkl'), 'wb') as file:
 
 print("\n--- ML Model Training Success ---")
 print("Model assets saved to 'model.pkl'.")
-print("You can now run 'main.py' to start the Flask service.")
+print("You can now run 'main.py' to start the Flask web service.")

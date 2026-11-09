@@ -89,4 +89,4 @@ for i in range(1, NUM_ROWS + 1):
 
 transactions_df = pd.DataFrame(transactions_data)
 transactions_df.to_csv(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'datasets', 'transactions.csv'), index=False)
-print("Generated transactions.csv with 400 rows.")
+print("Generated transactions.csv with 400 rows to proceed.")
