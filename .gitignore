@@ -27,6 +27,7 @@ coverage.xml
 # IDE
 .vscode/
 .idea/
+.openidea/
 *.swp
 *.swo
 *~
