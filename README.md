@@ -42,8 +42,8 @@ A web application that connects small/medium farmers and buyers (markets, aggreg
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/OfficialDiLi/FarmConnect.git
+cd FarmConnect
 ```
 
 2. Create a virtual environment:
